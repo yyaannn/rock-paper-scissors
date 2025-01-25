@@ -1,3 +1,5 @@
+let humanScore = 0, computerScore = 0;
+
 function getComputerChoice() {
     let computerChoice;
     switch (Math.floor(Math.random() * 3)) {
@@ -11,16 +13,77 @@ function getComputerChoice() {
             computerChoice = "scissors";
             break;
     }
-    console.log("compute choice: " + computerChoice);
+    console.log("computer choice: " + computerChoice);
     return computerChoice;
 }
 
 function getHumanChoice() {
     let humanChoice = prompt("Please enter your choice (rock, paper, or scissors):");
+    humanChoice = humanChoice.toLowerCase();
     console.log("human choice: " + humanChoice);
+    return humanChoice;
 }
 
-let humanScore = 0, computerScore = 0;
+function playGame() {
+    function playRound(humanChoice, computerChoice) {
+        switch (humanChoice) {
+            case "rock":
+                switch (computerChoice) {
+                    case "rock":
+                        console.log("tie");
+                        break;
+                    case "paper":
+                        computerScore++;
+                        console.log("you lose");
+                        break;
+                    case "scissors":
+                        humanScore++;
+                        console.log("you win");
+                        break;
+                }
+                break;
+            case "paper":
+                switch (computerChoice) {
+                    case "rock":
+                        humanScore++;
+                        console.log("you win");
+                        break;
+                    case "paper":
+                        console.log("tie");
+                        break;
+                    case "scissors":
+                        computerScore++;
+                        console.log("you lose");
+                        break;
+                }
+                break;
+            case "scissors":
+                switch (computerChoice) {
+                    case "rock":
+                        computerScore++;
+                        console.log("you lose");
+                        break;
+                    case "paper":
+                        humanScore++;
+                        console.log("you win");
+                        break;
+                    case "scissors":
+                        console.log("tie");
+                        break;
+                }
+                break;
+        }
+    }
 
-getHumanChoice();
-getComputeChoice();
+    for (let i = 0; i < 5; i++) {
+        const humanSelection = getHumanChoice();
+        const computerSelection = getComputerChoice();
+
+        playRound(humanSelection, computerSelection);
+    }
+
+    console.log("human score: " + humanScore);
+    console.log("computer score: " + computerScore);
+}
+
+playGame();
